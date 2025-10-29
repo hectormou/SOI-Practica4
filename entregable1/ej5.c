@@ -1,30 +1,8 @@
-/*.ENTREGABLE 1 Haz un programa para comprobar el efecto de la función sched_yield
-(pthread_yield puede usarse en versiones antiguas de la biblioteca de C de GNU). Una forma
-sencilla de hacer esto es crear un programa con varios hilos, de modo que unos sean generosos y
-otros competitivos al liberar la CPU.
-Para ello, implementa un programa que cree dos grupos de hilos que compitan por realizar un
-cálculo intensivo de CPU: la aproximación del número π mediante el método de Montecarlo.
-• Cada hilo debe realizar el mismo trabajo de cálculo: generar (1e9) pares de puntos x,y
-aleatorios dentro del cuadrado que va de 0 a 1 en los ejes X e Y. Para cada par de puntos
-generado, el hilo debe comprobar si ese punto está dentro del círculo de radio 1 centrado en
-el origen, verificando si se cumple la condición
-x2 + y2 ≤ 1
-• Cada hilo llevará la cuenta de cuántos puntos caen dentro del círculo y de cuántos ha
-generado en total. Al terminar, calculará la proporción entre ambos valores (puntos dentro
-/ puntos totales) y multiplicará ese resultado por 4. Este valor aproximará el número π.
-• El número de hilos debe poder variarse utilizando una constante. Los hilos pares serán
-los generosos y los impares los competitivos. Los hilos del grupo generoso deben llamar
-periódicamente a sched_yield durante sus iteraciones para ceder voluntariamente la CPU,
-mientras que los hilos del grupo competitivo no deben hacerlo. Utiliza una constante para
-establecer cada cuántas iteraciones llaman a sched_yield, de manera que se pueda modificar
-fácilmente para ver el efecto.
-• Comprueba que los hilos que hacen llamadas a sched_yield terminan más tarde que los que
-no, es decir, que ser amables reduce su rendimiento.
-• Mide y muestra el tiempo total de ejecución de cada hilo para poder comparar ambos
-comportamientos. Debes imprimir una tabla final donde se muestre, ordenado de menor a
-mayor tiempo de ejecución, el número del hilo, el tipo del hilo (generoso o competitivo), el
-tiempo de ejecución y la aproximación de π obtenida.*/
+/*
+    * Authors: Jorge García Lado y Héctor Moure Rodríguez
+*/
 
+//gcc ej5.c -Wall -lpthread
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,7 +11,7 @@ tiempo de ejecución y la aproximación de π obtenida.*/
 #include <string.h>
 #include <sys/time.h>
 
-int num_puntos = 1000000;
+int num_puntos = 1000000000;
 int num_hilos=8;//valor por defecto
 int freq_yield=10;//valor por defecto
 
